@@ -1,0 +1,24 @@
+.tiger {
+  padding: 10px;
+  text-align: center;
+  background: white;
+  border: 1px solid #dddddd;
+}
+
+.tiger a {
+  color: #EF0040;
+  font-weight: bold;
+}
+
+.tiger p {
+  text-align: center;
+  font-size: 1em;
+  line-height: 1em;
+  font-weight: normal;
+}
+
+.tiger .ad {
+  border      : 0px solid white;
+  text-align  : center;
+}
+

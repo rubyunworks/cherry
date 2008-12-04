@@ -1,0 +1,89 @@
+<body>
+<head>
+  <title>jQuilt</title>
+  <style>
+    body {
+      padding: 10px 40px;
+      font-family: sans-serif;
+      letter-spacing: 2px;
+    }
+    a {
+      text-decoration: none;
+    }
+    img { border: none; }
+    .title { font-size: 64px; }
+    .ad {
+      float: right;
+      text-align: center;
+      margin: 0 0 30px 30px;
+    }
+    .adframe {
+      height: 602px;
+      width: 162px;
+    }
+    .tiger {
+      margin-bottom: 30px;
+    }
+    .text {
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ad">
+    <div class="tiger" style="padding-top: 10px;">
+      <img src="img/tiger-sm.png"/><br/>
+
+      <a href="http://tigerops.psytower.info">
+        <img src="img/tiger-logo.png" width="150px" align="top"/>
+      </a><br/>
+
+      Ads for OSS!<br/><br/>
+
+      <b>also by us</b><br/>
+
+      <a href="http://tigerops.psytower.info/projects/jtextile/index.html">jTextile</a> <br/>
+      <a href="http://stick.rubyforge.org">Stick</a> <br/>
+      <a href="http://facets.rubyforge.org">Facets</a> <br/>
+    </div>
+
+    <iframe class="adframe" src="ads/amazon.html" scrolling="no" align="middle" frameborder="0" marginwidth="0"></iframe>
+    <br/><br/>
+    <iframe class="adframe" src="ads/google.html" scrolling="no" align="middle" frameborder="0" marginwidth="0"></iframe>
+  </div>
+
+  <div class="text">
+    <div class="title">jQuilt</div>
+    <div class="subtitle">A jQuery Plugin</div>
+
+    <p>
+      jQuilt is a "weaving" template system that
+      operate fully on the front-end, thus off-loading
+      some of the back-end work load while also
+      providing 100% SOC (Seperation of Concern).
+    </p>
+
+    <h2>Examples</h2>
+
+    <pre><code>
+       data = {
+         hello: "Hello, World!"
+       }
+
+       $.jquilt(data)
+    </code></pre>
+
+    <p>
+      jQuilt templates are especially useful when
+      filled via AJAX with JSON data. For this reason
+      a shortcut is provided.
+    </p>
+
+    <pre><code>
+        $.jquilt_ajax('http://somewhere/data.json')
+    </code></pre>
+  </div>
+
+</body>
+</html>
+

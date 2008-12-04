@@ -1,0 +1,34 @@
+<html>
+<head>                
+<script type="text/javascript" src="home/scripts/jquery.js"></script>
+<script type="text/javascript" src="home/scripts/support.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+     $('#content').hide('fast',loadContent);
+   });
+
+   function loadContent() {
+     var dir = dirname(window.location.pathname);
+     var loc = window.location.hash.replace(/^\#/,'');
+     var url = dir + '/' + loc
+     $('#content').load(url,'',showContent)  
+   };
+
+   function showContent() {
+     $('#content').show('normal') /* ,hideLoader); */
+   };
+</script>
+</head>
+<body>
+
+  <div id="sidebar" style="float: right; margin-right: 20px;">
+    <iframe src="http://tigerops.org/ads/side-wide-wht.html" style="width: 300px; height: 1400px; border: 0;" scrolling="no">
+    </iframe>
+  </div>
+
+  <div id="content" style="width: 900px; margin: 0 auto; border-right: 300px solid white;">
+  </div>
+
+</body>
+</html>
+

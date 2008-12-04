@@ -1,0 +1,299 @@
+require 'cherry/core_ext/kernel'
+
+# require 'pathname'
+#
+# class Path
+#   def self./(path)
+#     Pathname.new(path)
+#   end
+#   def /(path)
+#
+#   end
+# end
+
+#
+module Cherry
+
+  # Set the adapter, either rexml or ruby-libxml.
+  #
+  def self.adapter( name=nil )
+    return @adapter if @adapter
+    if name
+      require "cherry/adapter/#{name}"
+      adapter = Cherry.const_get( name.to_s.upcase )
+    else
+      begin
+        require "cherry/adapter/libxml"
+        adapter = LIBXML
+      rescue
+        require "cherry/adapter/rexml"
+        adapter = REXML
+      end
+    end
+    Xml.class_eval{ include adapter }
+    @adapter = adapter
+  end
+
+  # Functional shortcut to Xml.new.
+  #
+  def Xml(io_or_str) Xml.new(io_or_str) end
+
+  # Xml class -- this is the workhorse.
+  #
+  class Xml
+
+    include Enumerable
+
+    class << self
+
+      def adapter( a=nil )
+        Cherry.adapter( a )
+      end
+
+      #
+
+      alias_method :delegate, :new
+
+      # Creates an Cherry::Xml object from a File
+      # or other IO, or a String.
+
+      def new( io_or_str, use_tidy=nil )
+        #return self if io_or_str === self
+        a = adapter()
+
+        if io_or_str.respond_to?(:read)
+          str = io_or_str.read
+          io_or_str.close rescue nil
+        else
+          str = io_or_str.to_s
+        end
+
+        if use_tidy
+          node = a.parse( tidy( str, use_tidy ) )
+        else
+          node = a.parse( str )
+        end
+
+        delegate( node )
+      end
+
+      # Load XML from file.
+
+      def load( file )
+        new( File.new( file ) )
+      end
+
+      #
+
+      def tidy(html, tidy_path=nil)
+        require 'tidy'
+        find_tidy( tidy_path )
+        xml = Tidy.open(:show_warnings=>false) do |t|
+          t.options.output_xml = true
+          t.clean(html)
+        end
+      end
+
+      # Try to find the tidy library.
+
+      def find_tidy( tidy_path=nil )
+        if String === tidy_path
+          if File.exist?( tidy_path )
+            return Tidy.path = tidy_path
+          end
+        end
+        #tidylib.dll libtidy.dll
+        %w{ libtidy.so tidylib.so }.each do |f|
+          [ '/usr/lib', '/usr/local/lib' ].each do |d|
+            try_file = File.join( d, 'libtidy.so' )
+            if File.exist?(try_file)
+              return Tidy.path = try_file
+            end
+          end
+        end
+        raise 'Tidy HTML library is unlocatable.'
+      end
+
+    end
+
+    # instance methods ------------------------------
+
+    def initialize( n )
+      @node = n
+    end
+
+    # Access to the underlying object.
+
+    def node() @node end
+
+    #
+
+    #def inspect
+    #  "<#{name}>...</>"
+    #end
+
+    # Create a new Xml object from a string.
+
+    def xml( item )
+      return item if object_class === item
+      object_class.new( item )
+    end
+
+    # Create a new Xml object from a native node.
+
+    def delegate( node )
+      object_class.delegate( node )
+    end
+
+    #def ==(other)
+    #  @node.hash == other.node!.hash
+    #end
+
+    # XPath search via divisor. Also accepts limited CSS notation.
+
+    #def op_div(xpath)
+    #  xpath = css_to_xpath(xpath)
+    #  query("#{xpath}")
+    #end
+
+    #alias_method '/', :query
+
+    # Return the first child element that matches the give +tag+.
+
+    def at( tag )
+      search(tag)[0]
+    end
+
+    # Iterate over each child element.
+
+    def each
+      @node.each { |n| yield delegate(n) }
+    end
+
+    # Return Xml::Elements of all subnodes.
+
+    def children
+      Elements.new( @node.collect{ |n| delegate(n) } )
+    end
+
+    # Add a child node.
+
+    def append( item )
+      case item
+      when object_class
+        super( item.node )
+      when Array, Elements
+        item.each { |i| add( i ) }
+      else
+        add_text( item )
+      end
+      item
+    end
+    alias :<< :append
+    alias :add :append  # TODO maybe deprecate #add
+
+    #
+
+    def prepend()
+
+    end
+
+  private
+
+    # Convert a CSS index to an XPath index.
+
+    def css_to_xpath( css )
+      case css.to_s
+      when /^(\w*)([#.])(\w+)$/
+        tag = ($1 == '' ? '*' : '')
+        if $2 == '#'
+          "#{tag}[@id='#{$3}']"
+        else
+          "#{tag}[@class='#{$3}']"
+        end
+      else
+        css
+      end
+    end
+
+    #def method_missing( sym, *args )
+    #  self / sym
+    #end
+
+  end
+
+  #
+  class Xml::Elements
+
+    include Enumerable
+
+    def initialize( list )
+      @list = list
+    end
+
+    def first() @list.first end
+    def last()  @list.last  end
+    #def uniq!() @list.uniq! end
+
+    def to_s()   @list.join end
+    def to_a()   @list end
+    def to_ary() @list end
+
+    def [](index)
+      @list[index]
+    end
+
+    #
+
+    def each( &yld )
+      @list.each( &yld )
+    end
+
+    #
+
+    def search(xpath)
+      l = []
+      @list.each{ |node| l.concat( node.search(xpath) ) }
+      self.class.new( l )
+    end
+
+    # Effectively an alias of #search.
+
+    def query(xpath)
+      l = []
+      @list.each{ |node| l.concat( node.query(xpath) ) }
+      self.class.new( l )
+    end
+
+    alias_method '/', :query
+
+    #def /(xpath)
+    #  l = []
+    #  @list.each{ |node| l.concat( node / xpath) }
+    #  self.class.new( l )
+    #end
+
+    # Set attributes.
+
+    def set( hash )
+      each { |e| e.set( hash ) }
+    end
+
+    #
+
+    def remove!
+      each { |e| e.remove! }
+    end
+
+    # Apply call to element in the list.
+    #
+    #def method_missing( sym, *args, &blk )
+    #  l = []
+    #  @list.each { |node| l.concat node.send(sym, *args, &blk) }
+    #  self.class.new( l )
+    #end
+
+  end
+
+end
+

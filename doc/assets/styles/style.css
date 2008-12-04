@@ -1,0 +1,153 @@
+body {
+  background: url(../images/cherry-side.png) 20px -100px no-repeat white;
+}
+
+p {
+  text-align  : justify;
+  color       : #111111;
+  font-weight : normal;
+  margin      : 10px 0px 10px 0px;
+  line-height : 1.5em;
+}
+
+a {
+  color: #EF0040;
+}
+
+pre {
+  font-family   : monospace;
+  color         : #40F340;
+  background    : black;
+  margin-top    : 15px;
+  margin-bottom : 15px;
+  font-size     : 0.9em;
+  font-weight   : bold;
+  line-height   : 1.5em;
+  padding       : 15px 0;
+  text-align    : left;
+}
+
+h1 {
+  color: green;
+  font-size: 72px;
+  padding: 0;
+}
+
+h2 {
+  color: green;
+  font-size: 36px;
+  text-align: left;
+  margin-top: 5px;
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  text-align: left;
+  margin-top: 15px;
+}
+
+.red { color: red; }
+
+
+.container {
+  position     : relative;
+}
+
+/* HEADER */
+
+.header {
+  margin-left: 20px;
+  margin-bottom: 5px;
+  padding-top: 0;
+  text-align: left;
+}
+
+  .header h1 {
+    opacity: 0.8;
+    font-family: times;
+  }
+
+/* MENU */
+
+.menu {
+  padding        : 2px;
+  color          : green;
+  font-size      : 1.1em;
+  text-align     : left;
+}
+
+  .menu a {
+    font-size: 1em;
+    font-weight: bold;
+    color: red;
+    text-decoration: none;
+  }
+
+  .menu a:hover {
+    text-decoration: underline;
+  }
+
+/* MAIN */
+
+.main {
+  margin-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  border: 2px solid pink;
+}
+
+  .main p { text-align: justify; line-height: 1.6em; }
+
+  .main a { font: 1.1em sans-serif; color: red; font-weight: bold; }
+
+  .main h1 { font-size: 64pt; margin: 5px 0; }
+         
+  .main .section {
+    padding: 5px 20px;
+    font-weight: bold;
+    color: #000000;
+    filter:alpha(opacity=70);
+    opacity: 0.9;
+    -moz-opacity:0.9;
+  }
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 164px;
+  padding: 15px;
+  padding-right: 25px;
+  text-align: center;
+  background: white;
+  border: 0px solid #dddddd;
+  margin-top: 0;
+}
+
+  .sidebar a {
+    color: #EF0040;
+    font-weight: bold;
+  }
+
+  .sidebar p {
+    text-align: center;
+  }
+
+  .sidebar .ad {
+    border      : 0px solid white;
+    text-align  : center;
+  }
+
+/* FOOTER */
+
+.footer {
+  padding : 5px;
+  margin  : 0 0 20px 20px;
+}
+
+  .footer .copyright {
+    color: gray;
+    font-size: 10px;
+  }
+
+

@@ -1,0 +1,125 @@
+<html>
+<head>
+
+  <title>Xherry</title>
+  <link REL="SHORTCUT ICON" HREF="img/cherry-sm.png"/>  
+
+  <link href="home/css/reset.css" rel="stylesheet" type="text/css"/>
+  <link href="home/css/style.css" rel="stylesheet" type="text/css"/>
+  <link href="home/css/tiger.css" rel="stylesheet" type="text/css"/>
+
+</head>
+<body>
+
+  <div class="header">
+    <h1> &lt;<span class="red">Xherry</span>/&gt; </h1>
+
+    <div class="menu">
+      &lt;<a href="rdoc/index.html">documentation</a>/&gt;
+      &lt;<a href="http://rubyforge.org/frs/?group_id=5881">download</a>/&gt;
+      &lt;<a href="http://rubyforge.org/projects/tigerops">development</a>/&gt;
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div class="section">
+      <h2 style="margin-top: 0px;">&lt;<span class="red">Introduction</span>/&gt;</h2>
+
+      <p>Xherry is a "cherry-picking" XML parser for Ruby originally inspired by
+      <a href="http://en.wikipedia.org/wiki/E4X">E4X</a> and <a href="http://jquery.com">jQuery</a>.</p>
+
+      <p>Rather then focus on the details of parser implementation, Xherry adapts a Ruby-esque front-end
+      to previoulsy tried-and-true XML parsers on the back-end. Specifically, Xherry supports REXML and LibXML
+      as back-end adapters. This is very useful when a pure Ruby setup in needed (REXML)
+      or when speed is essential (LibXML).</p>
+
+      <p>In more recent versions Xherry has drawn inspiration from WhyTheLuckyStiffs'
+      <a href="http://code.whytheluckystiff.net/hpricot/">Hpricot</a> HTML parser.
+      Hpricot is a great library in the same spirit. So Xherry's API has been made largely
+      compatible for better interoperability and to save you brain cells. And, yes, if you
+      were wondering, the name "Xherry" was also inspired by Hpricot (originally it had been called 'rQuery').</p>
+    </div>
+
+    <div class="section">
+      <h2>&lt;<span class="red">Intstallation</span>/&gt;</h2>
+
+      <p>Installation is a simple as ever with RubyGems:</p>
+
+<pre>
+    gem install xherry
+</pre>
+
+      <p>Manual installation is provided via <a href="http://setup.rubyforge.org"><code>setup.rb</code></a>.</p>
+
+    </div>
+
+    <div class="section">
+      <h2>&lt;<span class="red">Usage</span>/&gt;</h2>
+
+      <p>Let's say we have this XML document stored in <code>inventory.xml</code>:</p>
+
+<pre>
+    &lt;inventory title="OmniCorp Store #45x10^3"&gt;
+      &lt;section name="health"&gt;
+        &lt;item upc="123456789" id="12"&gt;
+          &lt;name&gt;Invisibility Cream&lt;/name&gt;
+          &lt;price&gt;14.50&lt;/price&gt;
+          &lt;description&gt;Makes you invisible&lt;/description&gt;
+        &lt;/item&gt;
+        &lt;item upc="445322344" id="18"&gt;
+          &lt;name&gt;Levitation Salve&lt;/name&gt;
+          &lt;price&gt;23.99&lt;/price&gt;
+          &lt;description&gt;Levitate yourself for up to 3 hours per application&lt;/description&gt;
+        &lt;/item&gt;
+      &lt;/section&gt;
+      &lt;section name="food"&gt;
+        &lt;item upc="485672034" id="653"&gt;
+          &lt;name&gt;Blork and Freen Instameal&lt;/name&gt;
+          &lt;price&gt;4.95&lt;/price&gt;
+          &lt;description&gt;A tasty meal in a tablet; just add water&lt;/description&gt;
+        &lt;/item&gt;
+        &lt;item upc="132957764" id="44"&gt;
+          &lt;name&gt;Grob winglets&lt;/name&gt;
+          &lt;price&gt;3.56&lt;/price&gt;
+          &lt;description&gt;Tender winglets of Grob. Just add water&lt;/description&gt;
+        &lt;/item&gt;
+      &lt;/section&gt;
+    &lt;/inventory&gt;
+</pre>
+
+      <p>Now we can query information from this document, like so:</p>
+
+<pre>
+    root = Xherry::Xml.load('inventory.xml')
+
+    root['title']         #=> "OmniCorp Store #45x10^3"
+
+    root/:section         #=> &lt;section name='health'&gt; ... ,
+                              &lt;section name='food'&gt; ...
+
+    root/:section/:item   #=> &lt;item id='12'  upc='123456789'&gt; ... ,
+                              &lt;item id='18'  upc='445322344'&gt; ... ,
+                              &lt;item id='653' upc='485672034'&gt; ... ,
+                              &lt;item id='44'  upc='132957764'&gt; ...
+</pre>
+
+      <p>The selection process allows you to quickly select large portions of document as well
+      as narrow in on particulars.</p>
+
+      <p>Have a look at the <a href="rdoc">API documentation</a> for more information.</p>
+
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="copyright">
+      Copyright &copy; 2006, 2008
+      Tiger Ops
+    </div>
+  </div>
+
+</body>
+</html>
+
