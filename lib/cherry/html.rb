@@ -1,4 +1,4 @@
-require 'xcherry/xml'
+require 'cherry/xml'
 require 'tidy'
 
 #Tidy.path = '/usr/lib/tidylib.so'

@@ -1,4 +1,4 @@
-require 'cherry/core_ext/kernel'
+require 'cherry/core_ext'
 
 module Cherry
 
