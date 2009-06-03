@@ -27,12 +27,12 @@ module Cherry
         end
 
         if use_tidy
-          node = parse(tidy(str, use_tidy))
+          doc = document(tidy(str, use_tidy))
         else
-          node = parse(str)
+          doc = document(str)
         end
 
-        delegate(node)
+        delegate(doc.root)
       end
 
       # Load XML from file.

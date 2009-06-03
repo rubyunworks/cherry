@@ -18,10 +18,11 @@ module Cherry
   #
   class Libxml < Base
 
-    def self.parse(str)
-      prs = ::LibXML::XML::Parser.new
-      prs.string = str
-      prs.parse.root
+    def self.document(str)
+      #prs = ::LibXML::XML::Parser.new
+      #prs.string = str
+      #prs.parse
+      ::LibXML::XML::Document.string(str)
     end
 
     # Return the first child element that matches the give +tag+.

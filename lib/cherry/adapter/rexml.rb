@@ -7,8 +7,8 @@ module Cherry
   #
   class Rexml < Base
 
-    def self.parse(str)
-      ::REXML::Document.new(str).root
+    def self.document(str)
+      ::REXML::Document.new(str)
     end
 
     #def self.load(file)

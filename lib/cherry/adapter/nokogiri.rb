@@ -18,10 +18,8 @@ module Cherry
   #
   class Nokogiri < Base
 
-    def self.parse(str)
-      prs = ::Nokogiri::XML.new(str)
-      #prs.string = str
-      prs.parse.root
+    def self.document(str)
+      ::Nokogiri::XML.new(str)
     end
 
     # Return the first child element that matches the give +tag+.
