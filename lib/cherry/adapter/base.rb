@@ -75,14 +75,14 @@ module Cherry
     end
 
     # Parse XML into underlying document.
-
-    def self.parse( str )
+    #
+    def self.document(str)
       raise MissingImplemention
     end
 
     # instance methods ------------------------------
 
-    # Access to the underlying object.
+    # Access to the underlying node object.
 
     attr_reader :node
 
@@ -336,7 +336,7 @@ module Cherry
 
     include Enumerable
 
-    def initialize( list )
+    def initialize(list)
       @list = list
     end
 
@@ -405,3 +405,4 @@ module Cherry
   end
 
 end
+

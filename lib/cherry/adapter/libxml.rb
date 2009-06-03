@@ -62,8 +62,8 @@ module Cherry
     # XPath search.
 
     def search(xpath)
-      list = @node.find(xpath.to_s).to_a.collect { |n| delegate(n) }
-      Elements.new( list )
+      list = @node.find(xpath.to_s).to_a.map{ |n| delegate(n) }
+      Elements.new(list)
     end
 
     # Remove self from parent element.
@@ -143,7 +143,7 @@ module Cherry
     # Access attribute.
 
     def [](attr)
-      @node[attr]
+      delegate(@node[attr])
     end
 
     # Assign attribute.
