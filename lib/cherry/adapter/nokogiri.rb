@@ -19,7 +19,7 @@ module Cherry
   class Nokogiri < Base
 
     def self.document(str)
-      ::Nokogiri::XML.new(str)
+      ::Nokogiri::XML(str)
     end
 
     # Return the first child element that matches the give +tag+.
@@ -61,6 +61,15 @@ module Cherry
     def search(xpath)
       list = @node.search(xpath.to_s).to_a.collect { |n| delegate(n) }
       Elements.new( list )
+    end
+
+    # XPath or CSS search.
+
+    def query(xpath_or_css)
+      #xpath = css_to_xpath(xpath)
+      #search(xpath_or_css)
+      list = @node.search(xpath_or_css.to_s).to_a.collect{ |n| delegate(n) }
+      Elements.new(list)
     end
 
     # Remove self from parent element.

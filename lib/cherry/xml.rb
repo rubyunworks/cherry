@@ -11,6 +11,9 @@ module Cherry
       adapter = Cherry.const_get(name.to_s.upcase)
     else
       begin
+      #  require "cherry/adapter/nokogiri"
+      #  adapter = Nokogiri
+      #rescue
         require "cherry/adapter/libxml"
         adapter = Libxml
       rescue
