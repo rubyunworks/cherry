@@ -312,7 +312,7 @@ module Cherry
   private
 
     # Convert a CSS index to an XPath index.
-
+    #
     def css_to_xpath( css )
       case css.to_s
       when /^(\w*)([#.])(\w+)$/

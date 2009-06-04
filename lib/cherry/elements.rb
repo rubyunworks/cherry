@@ -17,19 +17,17 @@ module Cherry
     def to_a()   @list end
     def to_ary() @list end
 
-    # TODO: should this be this index or the children of each list node?
+    # TODO: should this be this index or the children of each listed node?
     def [](index)
       @list[index]
     end
 
     #
-
     def each( &yld )
       @list.each( &yld )
     end
 
     #
-
     def search(xpath)
       l = []
       @list.each{ |node| l.concat( node.search(xpath) ) }
