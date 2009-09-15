@@ -1,0 +1,4 @@
+Cherry is a Ruby-esque variation on E4X and jQuery. It can use
+either REXML or LibXML2 via LibXML-Ruby or Nokigiri as a backend,
+offering a choice between ease of installation vs. speed.
+
